@@ -17,7 +17,7 @@ import { useAppSelector } from '../redux/hooks';
 import { useEffect, useState } from 'react';
 import { Form, useNavigate } from 'react-router-dom';
 import ExpenseFilterForm from './ExpenseFilterForm';
-
+import { REACT_APP_API_URL } from "../../variables.json";
 interface Expense {
   id: string;
   amount: number;
@@ -47,7 +47,7 @@ export default function ExpenseList() {
         
           const params = new URLSearchParams(filters as any).toString();
 
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/expenses?${params}`, {
+    const res = await fetch(`${REACT_APP_API_URL}/api/expenses?${params}`, {
       headers: {
         'x-user': JSON.stringify({ id: '123', role: 'admin', name: 'john' })
       }
@@ -63,7 +63,7 @@ export default function ExpenseList() {
     };
 
   const handleUpdateStatus = async (id: string, status: 'approved' | 'rejected') => {
-  await fetch(`${process.env.REACT_APP_API_URL}/api/expenses/${id}`, {
+  await fetch(`${REACT_APP_API_URL}/api/expenses/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

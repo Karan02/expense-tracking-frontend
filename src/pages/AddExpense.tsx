@@ -14,6 +14,7 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../redux/hooks';
+import { REACT_APP_API_URL } from "../../variables.json"
 
 export default function AddExpense() {
   const user = useAppSelector(state => state.auth.user);
@@ -27,7 +28,7 @@ export default function AddExpense() {
   const handleSubmit = async () => {
     const payload = { amount: parseFloat(amount), category, description, date };
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/expenses`, {
+      const res = await fetch(`${REACT_APP_API_URL}/api/expenses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

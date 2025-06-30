@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import { useAppSelector } from '../redux/hooks';
 import { useNavigate } from 'react-router-dom';
-
+import { REACT_APP_API_URL } from "../../variables.json"
 interface AnalyticsData {
   category: string;
   total: number;
@@ -18,7 +18,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('/api/analytics', {
+      const res = await fetch(`${REACT_APP_API_URL}/api/analytics`, {
         headers: { 'x-user': JSON.stringify(user) },
       });
       const json = await res.json();
