@@ -12,14 +12,13 @@ export default function LoginPage() {
   const handleLogin = () => {
     // Mock login
     const mockUser = {
-      id: "faa4b11d-6731-4ab8-a52b-03c36e415819", //employee
+      id: "ec259d54-b234-478c-a757-713b85e1ad58",
       name: "John Doe",
-      // role: email.includes('admin') ? "admin" : "employee",
       role:"employee",
    
     };
     const mockAdmin = {
-      id:"54183616-f77f-4324-965c-bf937bc16dbc", //admin
+      id:"087de20b-2840-4f43-8d6c-ca0051e5ffb1",
       name: "John Doe",
       role:"admin"
     }
