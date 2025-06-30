@@ -27,7 +27,7 @@ export default function AddExpense() {
   const handleSubmit = async () => {
     const payload = { amount: parseFloat(amount), category, description, date };
     try {
-      const res = await fetch('/api/expenses', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/expenses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
