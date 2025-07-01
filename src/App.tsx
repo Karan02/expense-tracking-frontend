@@ -16,7 +16,7 @@ function App() {
         path="/expenses"
         element={user ? <ExpenseList /> : <Navigate to="/login" />}
       />
-      <Route path="*" element={<Navigate to="/expenses" />} />
+      <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
 }
