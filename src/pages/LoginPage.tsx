@@ -4,27 +4,49 @@ import { useAppDispatch } from '../redux/hooks';
 import { login } from '../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 
+interface LoginResponse {
+  token: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+  };
+}
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const [password,setPassword] = useState('');
+   const navigate = useNavigate();
+   const dispatch = useAppDispatch();
 
-  const handleLogin = () => {
-    // Mock login
-    const mockUser = {
-      id: "4a3d440b-fd1c-4d2b-b220-818d62ff03b7",
-      name: "John Doe",
-      role:"employee",
-   
-    };
-    const mockAdmin = {
-      id:"670d1ed8-ecce-4592-87eb-1e5a8995d303",
-      name: "John Doe",
-      role:"admin"
+  const handleLogin = async () => {
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || 'Login failed');
+      }
+
+      const data: LoginResponse = await res.json();
+
+      // ✅ Save token in localStorage
+      localStorage.setItem('token', data.token);
+      dispatch(login(data.user));
+
+      navigate('/expenses')
+      return data.user;
+    } catch (err: any) {
+      console.log("Error")
     }
-    dispatch(login(email.includes('admin')?mockAdmin:mockUser));
-    navigate('/expenses');
   };
+
 
   return (
     <Box maxW="sm" mx="auto" mt="20">
@@ -35,7 +57,12 @@ export default function LoginPage() {
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
-        <Button onClick={handleLogin} colorScheme="blue">
+        <Input
+          placeholder="Enter password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+        <Button disabled={email && password ? false:true} onClick={handleLogin} colorScheme="blue">
           Login
         </Button>
       </VStack>

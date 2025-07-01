@@ -74,7 +74,7 @@ export default function ExpenseList() {
   fetchExpenses({})
 };
 
-
+  console.log("user",user)
   return (
     <Box p={5}>
       <>
