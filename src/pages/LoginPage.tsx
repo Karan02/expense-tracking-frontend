@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useAppDispatch } from '../redux/hooks';
 import { login } from '../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
-
+import { REACT_APP_API_URL } from "../../variables.json"
 interface LoginResponse {
   token: string;
   user: {
@@ -23,7 +23,7 @@ export default function LoginPage() {
   const handleLogin = async () => {
 
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${REACT_APP_API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -43,7 +43,7 @@ export default function LoginPage() {
       navigate('/expenses')
       return data.user;
     } catch (err: any) {
-      console.log("Error")
+      console.log("Error",err)
     }
   };
 
