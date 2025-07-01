@@ -49,7 +49,7 @@ export default function ExpenseList() {
 
     const res = await fetch(`${REACT_APP_API_URL}/api/expenses?${params}`, {
       headers: {
-        'x-user': JSON.stringify({ id: '123', role: 'admin', name: 'john' })
+        'x-user': JSON.stringify(user)
       }
     });
 
@@ -67,7 +67,7 @@ export default function ExpenseList() {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'x-user': JSON.stringify({ id: '123', role: 'admin' })
+      'x-user': JSON.stringify(user)
     },
     body: JSON.stringify({ status })
   });
